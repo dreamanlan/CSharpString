@@ -223,11 +223,6 @@ namespace RoslynTool
                 using (StreamWriter sw2 = new StreamWriter(Path.Combine(logDir, "SemanticWarning.log"))) {
                     foreach (var pair in trees) {
                         var fileName = Path.Combine(path, pair.Key);
-                        var filePath = Path.Combine(outputDir, pair.Key);
-                        var dir = Path.GetDirectoryName(filePath);
-                        if (!Directory.Exists(dir)) {
-                            Directory.CreateDirectory(dir);
-                        }
                         SyntaxTree tree = pair.Value;
                         var model = compilation.GetSemanticModel(tree, true);
 
