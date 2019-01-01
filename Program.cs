@@ -22,7 +22,6 @@ namespace RoslynTool
                 Dictionary<string, string> refByNames = new Dictionary<string, string>();
                 Dictionary<string, string> refByPaths = new Dictionary<string, string>();
                 string systemDllPath = string.Empty;
-                bool outputResult = false;
                 bool parallel = false;
                 if (args.Length > 0) {
                     for (int i = 0; i < args.Length; ++i) {
