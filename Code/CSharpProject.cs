@@ -26,7 +26,7 @@ namespace RoslynTool
         public static ExitCode Process(string srcFile, string outputDir, IList<string> macros, IList<string> undefMacros, IDictionary<string, string> _refByNames, IDictionary<string, string> _refByPaths, string systemDllPath, bool parallel)
         {
             if (string.IsNullOrEmpty(outputDir)) {
-                outputDir = "../csharpstring";
+                outputDir = "../rewrite";
             }
 
             List<string> preprocessors = new List<string>(macros);
@@ -211,7 +211,7 @@ namespace RoslynTool
             }
 
             bool haveSemanticError = false;
-            var stringList = new List<string>();
+            var stringList = new HashSet<string>();
             CSharpCompilationOptions compilationOptions = new CSharpCompilationOptions(OutputKind.DynamicallyLinkedLibrary);
             compilationOptions = compilationOptions.WithAssemblyIdentityComparer(DesktopAssemblyIdentityComparer.Default);
             CSharpCompilation compilation = CSharpCompilation.Create(name);
@@ -250,7 +250,10 @@ namespace RoslynTool
 
                         CSharpCodeWalker walker = new CSharpCodeWalker(model);
                         walker.Visit(tree.GetRoot());
-                        stringList.AddRange(walker.StringList);
+                        foreach (var str in walker.StringList) {
+                            if (!stringList.Contains(str))
+                                stringList.Add(str);
+                        }
                     }
                 }
             }

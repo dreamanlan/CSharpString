@@ -22,7 +22,7 @@ namespace RoslynTool
             if (oper.ConstantValue.HasValue) {
                 string str = oper.ConstantValue.Value as string;
                 if (null != str) {
-
+                    m_StringList.Add(str);
                 }
             }
             base.VisitLiteralExpression(node);
