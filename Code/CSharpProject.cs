@@ -214,6 +214,7 @@ namespace RoslynTool
             var stringList = new HashSet<string>();
             CSharpCompilationOptions compilationOptions = new CSharpCompilationOptions(OutputKind.DynamicallyLinkedLibrary);
             compilationOptions = compilationOptions.WithAssemblyIdentityComparer(DesktopAssemblyIdentityComparer.Default);
+            compilationOptions = compilationOptions.WithAllowUnsafe(true);
             CSharpCompilation compilation = CSharpCompilation.Create(name);
             compilation = compilation.WithOptions(compilationOptions);
             compilation = compilation.AddReferences(refs.ToArray());
